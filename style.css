@@ -1,0 +1,41 @@
+div {
+  padding: 0px;
+  border: 1px solid red;
+  margin:auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+span {
+  margin: 1px;
+  border: 1px solid red;
+  padding: 0px;
+  width:20px;
+  height:20px;
+  text-align: center;
+}
+
+
+button {
+  margin: 0 auto;
+  display: block;
+}
+
+input {
+  margin: 0 auto;
+  display: block;
+}
+
+section {
+  margin: 0 auto;
+  display: block;
+  text-align: center;
+}
+
+textarea {
+  margin: 0 auto;
+  display: block;
+  width:75%;
+  height:500px;
+  resize: none
+}
