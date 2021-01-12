@@ -7,8 +7,8 @@ const lookforkey = document.getElementById('check');
 const oldresults = document.getElementById('oldresults');
 btn.addEventListener('click',count);
 lookforkey.addEventListener('click',iterate);
-const rows = 5;
-const cols = 5;
+const rows = 4;
+const cols = 4;
 const iterations = 2**(rows*cols);
 let magic = '';
 let key = ''
@@ -40,6 +40,7 @@ function iterate(){
   let cells = document.querySelectorAll("span");
   let lfkey = keytocheck.value;
   let keyfound = false;
+  let counter = '';
   console.log(lfkey)
   for (var i = 0; i < iterations; i++) {
     for (var j = 0; j < rows*cols; j++) {
@@ -51,10 +52,11 @@ function iterate(){
         cells[j].textContent = 'N';
       }
     }
-    tooldresult(dec2bin(i)+' = '+count())
-    if (lfkey==count()) {
+    counter = count();
+    //tooldresult(dec2bin(i)+' = '+ counter)
+    if (lfkey==counter) {
       keyfound = true;
-      toresult('found right key = ' + count())
+      toresult('found right key = ' + counter)
       break;
     }
     if (keyfound) {
