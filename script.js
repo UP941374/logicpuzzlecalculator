@@ -6,11 +6,10 @@ const keytocheck = document.getElementById('key');
 const lookforkey = document.getElementById('check');
 const oldresults = document.getElementById('oldresults');
 btn.addEventListener('click',count);
-rnd.addEventListener('click',randomise);
-lookforkey.addEventListener('click',findkey);
-const rows = 4;
-const cols = 4;
-const iterations = 10000;
+lookforkey.addEventListener('click',iterate);
+const rows = 5;
+const cols = 5;
+const iterations = 2**(rows*cols);
 let magic = '';
 let key = ''
 
@@ -25,40 +24,43 @@ for (var i = 0; i < rows; i++) {
   }
 };
 
-//key 14112551221111
-
-function findkey(){
-  let lfkey = keytocheck.value;
-  let result = ''
-  for (var i = 0; i < iterations; i++) {
-    randomise()
-    result = i + ':' + key + ' = ' + lfkey;
-    if (key == lfkey) {
-      result = result + ' FOUND!'
-      toresult(result);
-      break;
-    }
-    tooldresult(result)
-    }
-  }
-
 function random(){
   return Math.random() < 0.5;
 }
 
-function randomise(){
+function dec2bin(dec){
+  let res = (dec >>> 0).toString(2)
+  while (res.length < rows*cols) {
+    res = '0' + res;
+  }
+    return res;
+};
+
+function iterate(){
   let cells = document.querySelectorAll("span");
-for (var cell of cells) {
-  cell.style = 'background-color:white'
-  cell.textContent = 'N';
-}
-  for (var cell of cells) {
-    if (random()) {
-      cell.style = 'background-color:green'
-      cell.textContent = 'Y';
+  let lfkey = keytocheck.value;
+  let keyfound = false;
+  console.log(lfkey)
+  for (var i = 0; i < iterations; i++) {
+    for (var j = 0; j < rows*cols; j++) {
+      if (dec2bin(i)[j] == '1') {
+        cells[j].style = 'background-color:green'
+        cells[j].textContent = 'Y';
+      } else {
+        cells[j].style = 'background-color:white'
+        cells[j].textContent = 'N';
+      }
+    }
+    tooldresult(dec2bin(i)+' = '+count())
+    if (lfkey==count()) {
+      keyfound = true;
+      toresult('found right key = ' + count())
+      break;
+    }
+    if (keyfound) {
+      break;
     }
   }
-  count()
 };
 
 function count(){
@@ -69,6 +71,7 @@ function count(){
   countV()
   key = magic.split(' ').join('')
   tooldresult(key)
+  return key
 };
 
 function toresult(str){
@@ -78,7 +81,7 @@ function toresult(str){
 }
 
 function tooldresult(str){
-  let elem = document.createTextNode( "\n" + str);
+  let elem = document.createTextNode(str + "\n");
   oldresults.appendChild(elem);
 }
 
