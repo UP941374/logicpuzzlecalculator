@@ -1,4 +1,4 @@
-const world = document.getElementById('world');
+let world = document.getElementById('world');
 const btn = document.getElementById('btn');
 const res = document.getElementById('result');
 const rnd = document.getElementById('rand');
@@ -11,18 +11,17 @@ btn.addEventListener('click',count);
 lookforkey.addEventListener('click',iterate);
 window.addEventListener('load',drawgrid);
 let rows = x.value;
-let cols = rows;
-let iterations = 2**(rows*cols);
+let cols = x.value;
+let iterations = 2**(rows*cols)
+world.style = 'width: ' + (rows * 20 + rows*4) + 'px';
 let magic = '';
 let key = ''
-world.style = 'width: ' + (rows * 20 + rows*4) + 'px';
 
 function drawgrid(){
-  rows = x.value;
-  cols = x.value;
-  iterations = 2**(rows*cols)
+  let rows = x.value;
+  let cols = x.value;
+  let iterations = 2**(rows*cols)
   world.style = 'width: ' + (rows * 20 + rows*4) + 'px';
-  console.log('test',rows,cols)
   cleargrid();
   for (var i = 0; i < rows; i++) {
     for (var j = 0; j < cols; j++) {
