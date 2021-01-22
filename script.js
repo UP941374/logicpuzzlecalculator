@@ -1,7 +1,8 @@
-let world = document.getElementById('world');
+const world = document.getElementById('world');
 const btn = document.getElementById('btn');
 const res = document.getElementById('result');
 const rnd = document.getElementById('rand');
+const time = document.getElementById('time');
 const keytocheck = document.getElementById('key');
 const lookforkey = document.getElementById('check');
 const oldresults = document.getElementById('oldresults');
@@ -50,11 +51,11 @@ function dec2bin(dec){
 };
 
 function iterate(){
+  const timestart = Date.now();
   let cells = document.querySelectorAll("span");
   let lfkey = keytocheck.value;
   let keyfound = false;
   let counter = '';
-  console.log(lfkey)
   for (var i = 0; i < iterations; i++) {
     for (var j = 0; j < rows*cols; j++) {
       if (dec2bin(i)[j] == '1') {
@@ -66,10 +67,10 @@ function iterate(){
       }
     }
     counter = count();
-    //tooldresult(dec2bin(i)+' = '+ counter)
     if (lfkey==counter) {
       keyfound = true;
-      toresult('found right key = ' + counter)
+      toresult('Found right key: ' + counter)
+      time.textContent = 'Time taken: ' + (Date.now() - timestart) / 1000 + ' seconds';
       break;
     }
     if (keyfound) {
@@ -77,6 +78,7 @@ function iterate(){
     }
   }
 };
+
 
 function count(){
   res.textContent = '';
