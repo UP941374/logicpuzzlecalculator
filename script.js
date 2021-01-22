@@ -5,24 +5,38 @@ const rnd = document.getElementById('rand');
 const keytocheck = document.getElementById('key');
 const lookforkey = document.getElementById('check');
 const oldresults = document.getElementById('oldresults');
+let x = document.getElementById('x');
+x.addEventListener('change',drawgrid);
 btn.addEventListener('click',count);
 lookforkey.addEventListener('click',iterate);
-const rows = 4;
-const cols = 4;
-const iterations = 2**(rows*cols);
+window.addEventListener('load',drawgrid);
+let rows = x.value;
+let cols = rows;
+let iterations = 2**(rows*cols);
 let magic = '';
 let key = ''
-
 world.style = 'width: ' + (rows * 20 + rows*4) + 'px';
 
-for (var i = 0; i < rows; i++) {
-  for (var j = 0; j < cols; j++) {
-    let elem = document.createElement("span");
-    elem.addEventListener('click',showcoords)
-    elem.textContent ='N';
-    world.appendChild(elem);
+function drawgrid(){
+  rows = x.value;
+  cols = x.value;
+  iterations = 2**(rows*cols)
+  world.style = 'width: ' + (rows * 20 + rows*4) + 'px';
+  console.log('test',rows,cols)
+  cleargrid();
+  for (var i = 0; i < rows; i++) {
+    for (var j = 0; j < cols; j++) {
+      let elem = document.createElement("span");
+      elem.addEventListener('click',showcoords)
+      elem.textContent ='N';
+      world.appendChild(elem);
+    }
   }
 };
+
+function cleargrid(){
+  world.textContent = '';
+}
 
 function random(){
   return Math.random() < 0.5;
